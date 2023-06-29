@@ -49,7 +49,8 @@ app.get("/", (req, res) => {
 
 
 
-
-app.listen(PORT, () => {
-    console.log(`listing to the port at ${PORT}`);
-})
+mongoDbServer().then(
+    app.listen(PORT, () => {
+        console.log(`listing to the port at ${PORT}`);
+    })
+)
