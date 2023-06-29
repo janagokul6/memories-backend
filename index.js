@@ -16,6 +16,7 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }))
 app.use("/posts", postRoutes);
 app.use("/user", userRoutes);
 
+mongoose.set({"strictQuery":false});
 const MONGODB_URI = process.env.MONGODB_NEW_URL || 'Use your own mongodb database link'
 
 
@@ -23,7 +24,8 @@ const mongoDbServer = async () => {
     await mongoose.connect(MONGODB_URI, async (err, res) => {
         if (err) {
 
-            console.log("..... error in connnecting mongodb server")
+            console.log("..... error in connnecting mongodb server");
+            process.exit(1)
         } else {
             console.log("mongoDb server is Connected");
 
@@ -37,11 +39,6 @@ const mongoDbServer = async () => {
 
 }
 
-
-
-
-
-mongoDbServer()
 
 app.get("/", (req, res) => {
     res.send("<h1>Hello World!</h1>")
